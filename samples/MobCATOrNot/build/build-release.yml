@@ -1,0 +1,121 @@
+stages:
+- stage: UnitTests
+  jobs:
+  - job: UnitTests
+    displayName: Run Unit Tests
+    pool:
+      name: Hosted VS2017
+      demands:
+      - msbuild
+      - vstest
+
+    steps:
+    - script: echo Run UnitTests Stage!
+
+    - task: NuGetToolInstaller@1
+      displayName: Use Nuget 4.3.0
+      inputs:
+        versionSpec: '4.3.0'
+      enabled: "false"
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: samples/weather/xamarin/Weather.sln
+      enabled: "false"
+
+    - task: MSBuild@1
+      displayName: 'Build UnitTests'
+      inputs:
+        solution: samples/weather/xamarin/Weather.UnitTests/Weather.UnitTests.csproj
+      enabled: "false"
+
+- stage: BuildXamarinAndroid
+  dependsOn: UnitTests    # this stage runs after Test
+  jobs:
+  - job: BuildXamarinAndroid
+    displayName: Build Xamarin Android
+    pool:
+      name: Hosted macOS
+      demands:
+      - MSBuild
+      - Xamarin.Android
+      
+    steps:
+    - script: echo Build Xamarin Android Stage!
+
+    - task: Bash@3
+      displayName: 'Update Version'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/version.sh
+        arguments: '-b $(Build.BuildID) -e $(AppEnv)' # TODO: setup pipeline Variable AppEnv
+
+    - task: Bash@3
+      displayName: 'Update App Secrets'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/appsecrets.sh # TODO: setup pipeline Variables for Constants File
+
+    - task: NuGetToolInstaller@1
+      displayName: Use Nuget 4.3.0
+      inputs:
+        versionSpec: '4.3.0'
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: samples/MobCATOrNot/MobCATOrNot.sln
+
+    - task: XamarinAndroid@1
+      displayName: 'Build Xamarin.Android App'
+      inputs:
+        projectFile: samples/MobCATOrNot/MobCATOrNot.Android/MobCATOrNot.Droid.csproj
+        configuration: '$(BuildConfiguration)' # TODO: setup pipeline Variable BuildConfiguration
+        createAppPackage: false
+
+- stage: BuildXamariniOS
+  dependsOn: UnitTests    # this stage runs in parallel with DeployUS1, after Test 
+  jobs:
+  - job: BuildXamariniOS
+    displayName: Build Xamarin iOS
+    pool:
+      name: Hosted macOS
+      demands:
+      - xcode
+      - Xamarin.iOS
+      - msbuild
+
+    steps:
+    - script: echo Build Xamarin iOS Stage!
+    - task: NuGetToolInstaller@1
+      displayName: Use Nuget 4.3.0
+      inputs:
+        versionSpec: '4.3.0'
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: samples/MobCATOrNot/MobCATOrNot.sln
+    
+    - task: InstallAppleCertificate@2
+      displayName: 'Install an Apple certificate'
+      inputs:
+        certSecureFile: '80e22aef-d9fc-4fbe-b54c-0c7c6b3d89e4'
+        certPwd: '$(P12password)'
+      enabled: "false"
+
+    - task: InstallAppleProvisioningProfile@1
+      displayName: 'Install an Apple provisioning profile'
+      inputs:
+        provProfileSecureFile: '6b20ba66-b034-4f7d-9f97-2fd2746934ef'
+      enabled: "false"
+
+    - task: XamariniOS@2
+      displayName: 'Build Xamarin.iOS App'
+      inputs:
+        solutionFile: 'samples/MobCATOrNot/MobCATOrNot.sln'
+        configuration: '$(BuildConfiguration)'
+        packageApp: false
+        buildForSimulator: true
+        runNugetRestore: false
