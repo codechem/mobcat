@@ -30,7 +30,7 @@ stages:
         solution: samples/weather/xamarin/Weather.UnitTests/Weather.UnitTests.csproj
       enabled: "false"
 
-- stage: BuildXamarinAndroid
+- stage: BuildUITestXamarinAndroid
   dependsOn: UnitTests    # this stage runs after Test
   jobs:
   - job: BuildXamarinAndroid
@@ -97,6 +97,7 @@ stages:
         publishLocation: 'Container'
 
   - job: RunUITests
+    dependsOn: BuildXamarinAndroid
     displayName: Run UITests Android
 
     steps:
@@ -141,7 +142,7 @@ stages:
       enabled: "false"
 
 - stage: DistributeXamarinAndroid
-  dependsOn: BuildXamarinAndroid    # this stage runs after Test
+  dependsOn: BuildUITestXamarinAndroid    # this stage runs after Test
   jobs:
   - job: DistributeXamarinAndroid
     displayName: Distribute Xamarin Android
@@ -162,7 +163,7 @@ stages:
         distributionGroupId: '$(AppCenterDroidDistrubution)'
         isSilent: true
 
-- stage: BuildXamariniOS
+- stage: BuildUITestXamariniOS
   dependsOn: UnitTests    # this stage runs in parallel with DeployUS1, after Test 
   jobs:
   - job: BuildXamariniOS
@@ -236,7 +237,8 @@ stages:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
   - job: RunUITests
-    displayName: Run UITests Android
+    dependsOn: BuildXamariniOS
+    displayName: Run UITests iOS
 
     steps:
     - script: echo Run Xamarin UITest Job!
@@ -280,7 +282,7 @@ stages:
       enabled: "false"
 
 - stage: DistributeXamariniOS
-  dependsOn: BuildXamariniOS    # this stage runs after Test
+  dependsOn: BuildUITestXamariniOS    # this stage runs after Test
   jobs:
   - job: DistributeXamariniOS
     displayName: Distribute iOS
