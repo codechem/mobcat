@@ -4,10 +4,10 @@ stages:
   - job: UnitTests
     displayName: Run Unit Tests
     pool:
-    name: Hosted VS2017
-    demands:
-    - msbuild
-    - vstest
+      name: Hosted VS2017
+      demands:
+      - msbuild
+      - vstest
 
     steps:
     - script: echo Run UnitTests Stage!
@@ -19,12 +19,12 @@ stages:
   - job: BuildXamarinAndroid
     displayName: Build Xamarin Android
     pool:
-    name: Hosted macOS
-    demands:
-    - MSBuild
-    - Xamarin.Android
-
-  steps:
+      name: Hosted macOS
+      demands:
+      - MSBuild
+      - Xamarin.Android
+      
+    steps:
     - script: echo Build Xamarin iOS Stage!
 
 - stage: BuildXamariniOS
@@ -33,11 +33,11 @@ stages:
   - job: BuildXamariniOS
     displayName: Build Xamarin iOS
     pool:
-    name: Hosted macOS
-    demands:
-    - xcode
-    - Xamarin.iOS
-    - msbuild
+      name: Hosted macOS
+      demands:
+      - xcode
+      - Xamarin.iOS
+      - msbuild
 
     steps:
     - script: echo Build Xamarin iOS Stage!
