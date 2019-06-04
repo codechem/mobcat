@@ -152,15 +152,15 @@ stages:
     - script: echo Distribute Xamarin Android Stage!
 
     - task: AppCenterDistribute@3
-    inputs:
-      serverEndpoint: 'App Center'
-      appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
-      appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
-      releaseNotesOption: 'input'
-      releaseNotesInput: 'CI-Release'
-      destinationType: 'groups'
-      distributionGroupId: '$(AppCenterDroidDistrubution)'
-      isSilent: true
+      inputs:
+        serverEndpoint: 'App Center'
+        appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
+        appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'CI-Release'
+        destinationType: 'groups'
+        distributionGroupId: '$(AppCenterDroidDistrubution)'
+        isSilent: true
 
 - stage: BuildXamariniOS
   dependsOn: UnitTests    # this stage runs in parallel with DeployUS1, after Test 
@@ -240,7 +240,7 @@ stages:
 
     steps:
     - script: echo Run Xamarin UITest Job!
-    
+
     - task: MSBuild@1
       displayName: 'Build UITests'
       inputs:
@@ -291,12 +291,12 @@ stages:
     - script: echo Distribute Xamarin iOS Stage!
 
     - task: AppCenterDistribute@3
-    inputs:
-      serverEndpoint: 'App Center'
-      appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
-      appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
-      releaseNotesOption: 'input'
-      releaseNotesInput: 'CI-Release'
-      destinationType: 'groups'
-      distributionGroupId: '$(AppCenteriOSDistribution)'
-      isSilent: true
+      inputs:
+        serverEndpoint: 'App Center'
+        appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
+        appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'CI-Release'
+        destinationType: 'groups'
+        distributionGroupId: '$(AppCenteriOSDistribution)'
+        isSilent: true
