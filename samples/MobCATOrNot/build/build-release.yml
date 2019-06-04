@@ -187,8 +187,9 @@ stages:
       displayName: 'Build Xamarin.iOS App'
       inputs:
         solutionFile: samples/weather/xamarin/Weather.sln
-        configuration: 'Release'
+        configuration: '$(BuildConfiguration)'
         runNugetRestore: true
+        packageApp: true
         # signingIdentity: '$(APPLE_CERTIFICATE_SIGNING_IDENTITY)'
         # signingProvisioningProfileID: '$(APPLE_PROV_PROFILE_UUID)'
 
