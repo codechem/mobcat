@@ -100,7 +100,7 @@ stages:
       displayName: 'Build Xamarin.iOS App'
       inputs:
         solutionFile: 'samples/MobCATOrNot/MobCATOrNot.sln'
-        configuration: 'Debug'
+        configuration: '$(BuildConfiguration)'
         packageApp: false
         buildForSimulator: true
         runNugetRestore: false
