@@ -96,6 +96,12 @@ stages:
         ArtifactName: 'drop_android'
         publishLocation: 'Container'
 
+  - job: RunUITests
+    displayName: Run UITests Android
+
+    steps:
+    - script: echo Run Xamarin UITest Job!
+
     - task: MSBuild@1
       displayName: 'Build UITests'
       inputs:
@@ -133,6 +139,28 @@ stages:
         testResultsFiles: '$(Build.ArtifactStagingDirectory)/AppCenterTestResult/*.xml'
         mergeTestResults: true
       enabled: "false"
+
+- stage: DistributeXamarinAndroid
+  dependsOn: BuildXamarinAndroid    # this stage runs after Test
+  jobs:
+  - job: DistributeXamarinAndroid
+    displayName: Distribute Xamarin Android
+    pool:
+      name: Hosted macOS
+      
+    steps:
+    - script: echo Distribute Xamarin Android Stage!
+
+    - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center'
+      appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
+      appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
+      releaseNotesOption: 'input'
+      releaseNotesInput: 'CI-Release'
+      destinationType: 'groups'
+      distributionGroupId: '$(AppCenterDroidDistrubution)'
+      isSilent: true
 
 - stage: BuildXamariniOS
   dependsOn: UnitTests    # this stage runs in parallel with DeployUS1, after Test 
@@ -207,6 +235,12 @@ stages:
         publishLocation: 'Container'
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
 
+  - job: RunUITests
+    displayName: Run UITests Android
+
+    steps:
+    - script: echo Run Xamarin UITest Job!
+    
     - task: MSBuild@1
       displayName: 'Build UITests'
       inputs:
@@ -244,3 +278,25 @@ stages:
         testResultsFiles: '$(Build.ArtifactStagingDirectory)/AppCenterTestResult/*.xml'
         mergeTestResults: true
       enabled: "false"
+
+- stage: DistributeXamariniOS
+  dependsOn: BuildXamariniOS    # this stage runs after Test
+  jobs:
+  - job: DistributeXamariniOS
+    displayName: Distribute iOS
+    pool:
+      name: Hosted macOS
+
+    steps:
+    - script: echo Distribute Xamarin iOS Stage!
+
+    - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: 'App Center'
+      appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
+      appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
+      releaseNotesOption: 'input'
+      releaseNotesInput: 'CI-Release'
+      destinationType: 'groups'
+      distributionGroupId: '$(AppCenteriOSDistribution)'
+      isSilent: true
