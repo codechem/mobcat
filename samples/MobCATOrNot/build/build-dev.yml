@@ -1,0 +1,43 @@
+stages:
+- stage: UnitTests
+  jobs:
+  - job: UnitTests
+    displayName: Run Unit Tests
+    pool:
+    name: Hosted VS2017
+    demands:
+    - msbuild
+    - vstest
+
+    steps:
+    - script: echo Run UnitTests Stage!
+      
+
+- stage: BuildXamarinAndroid
+  dependsOn: UnitTests    # this stage runs after Test
+  jobs:
+  - job: BuildXamarinAndroid
+    displayName: Build Xamarin Android
+    pool:
+    name: Hosted macOS
+    demands:
+    - MSBuild
+    - Xamarin.Android
+
+  steps:
+    - script: echo Build Xamarin iOS Stage!
+
+- stage: BuildXamariniOS
+  dependsOn: UnitTests    # this stage runs in parallel with DeployUS1, after Test 
+  jobs:
+  - job: BuildXamariniOS
+    displayName: Build Xamarin iOS
+    pool:
+    name: Hosted macOS
+    demands:
+    - xcode
+    - Xamarin.iOS
+    - msbuild
+
+    steps:
+    - script: echo Build Xamarin iOS Stage!
