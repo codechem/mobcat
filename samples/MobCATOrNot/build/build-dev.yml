@@ -42,6 +42,21 @@ stages:
       
     steps:
     - script: echo Build Xamarin Android Stage!
+
+    - task: Bash@3
+      displayName: 'Update Version'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/version.sh
+        arguments: '-b $(Build.BuildID) -e $(AppEnv)'
+
+    - task: Bash@3
+      displayName: 'Update App Secrets'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/appsecrets.sh
+      enabled: "false"
+
     - task: NuGetToolInstaller@1
       displayName: Use Nuget 4.3.0
       inputs:
@@ -73,6 +88,21 @@ stages:
 
     steps:
     - script: echo Build Xamarin iOS Stage!
+
+    - task: Bash@3
+      displayName: 'Update Version'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/version.sh
+        arguments: '-b $(Build.BuildID) -e $(AppEnv)'
+
+    - task: Bash@3
+      displayName: 'Update App Secrets'
+      inputs:
+        targetType: filePath
+        filePath: samples/MobCATOrNot/build/appsecrets.sh
+      enabled: "false"
+
     - task: NuGetToolInstaller@1
       displayName: Use Nuget 4.3.0
       inputs:
