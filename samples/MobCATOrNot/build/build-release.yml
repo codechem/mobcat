@@ -145,7 +145,7 @@ stages:
   dependsOn: BuildUITestXamarinAndroid    # this stage runs after Test
   jobs:
   - job: DistributeXamarinAndroid
-    displayName: Distribute Xamarin Android
+    displayName: Distribute Android
     pool:
       name: Hosted macOS
       
@@ -156,7 +156,7 @@ stages:
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
-        appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
+        appFile: '$(Build.ArtifactStagingDirectory)/drop_android/*.apk'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
@@ -296,7 +296,7 @@ stages:
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
-        appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
+        appFile: '$(Build.ArtifactStagingDirectory)/drop_ios/*.ipa'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
