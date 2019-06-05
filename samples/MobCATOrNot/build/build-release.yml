@@ -156,7 +156,7 @@ stages:
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
-        appFile: '$(Build.ArtifactStagingDirectory)/drop_android/*.apk'
+        appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
@@ -296,7 +296,7 @@ stages:
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
-        appFile: '$(Build.ArtifactStagingDirectory)/drop_ios/*.ipa'
+        appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
