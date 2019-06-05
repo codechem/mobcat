@@ -152,11 +152,16 @@ stages:
     steps:
     - script: echo Distribute Xamarin Android Stage!
 
+    - task: DownloadPipelineArtifact@0
+      inputs:
+        artifactName: 'drop_android'
+        targetPath: $(Build.ArtifactStagingDirectory)
+
     - task: AppCenterDistribute@3
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.Droid'
-        appFile: '$(Build.ArtifactStagingDirectory)/*.apk'
+        appFile: '$(Build.ArtifactStagingDirectory)/drop_android/*.apk'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
@@ -292,11 +297,16 @@ stages:
     steps:
     - script: echo Distribute Xamarin iOS Stage!
 
+    - task: DownloadPipelineArtifact@0
+      inputs:
+        artifactName: 'drop_ios'
+        targetPath: $(Build.ArtifactStagingDirectory)
+
     - task: AppCenterDistribute@3
       inputs:
         serverEndpoint: 'App Center'
         appSlug: 'Mobile-Customer-Advisory-Team/MobCATOrNot.iOS'
-        appFile: '$(Build.ArtifactStagingDirectory)/*.ipa'
+        appFile: '$(Build.ArtifactStagingDirectory)/drop_ios/*.ipa'
         releaseNotesOption: 'input'
         releaseNotesInput: 'CI-Release'
         destinationType: 'groups'
