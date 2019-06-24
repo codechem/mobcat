@@ -129,7 +129,7 @@ stages:
     - task: XamariniOS@2
       displayName: 'Build Xamarin.iOS App'
       inputs:
-        solutionFile: 'samples/MobCATOrNot/MobCATOrNot.sln'
+        solutionFile: 'samples/MobCATOrNot/MobCATOrNot.iOS/MobCATOrNot.iOS.csproj'
         configuration: '$(BuildConfiguration)'
         packageApp: false
         buildForSimulator: true
