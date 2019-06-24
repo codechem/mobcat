@@ -17,6 +17,7 @@ The Twitch API documentation can be found here: https://dev.twitch.tv/docs/api/
 
 ### Auth 
 The user can log in to their Twitch account for app personalization
+- Biometric Auth? (as an option)?
 
 ### Following Tab
 The user can view categories and channels they are following both live and offline, get a list of recommended channels, and continue watching videos where they left off.
@@ -76,6 +77,9 @@ and view the following
 - Terms of Service
 - Community Guidelines
 and also log out of their account
+- Theming
+    - light or dark theme (or read from OS settings?)
+    - auto change to light/dark based on time of day
 
 ### Notifications (Push Nav) (Right Nav Bar item 1)
 The user can see their most recent notifications and manage their notification settings
@@ -90,6 +94,14 @@ The user can search for
 - Categories
 - Videos
 and view top results from each of the categories
+
+### Caching
+- caching login credentials
+- caching some video content?
+
+### Push Notifications
+- Get a push/reminder if when person/channel you are following starts streaming
+
 
 ## MobCAT Twitch Functionality
 
@@ -122,3 +134,5 @@ The Xamarin concepts and best practices that will be highlighted are
 - Asynchronous programming
 - Smart image caching and loading
 - Performance optimization, memory management, and profiling
+- Custom Controls for something? (like Top tabs or some button or something)
+
