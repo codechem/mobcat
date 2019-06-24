@@ -61,6 +61,7 @@ stages:
       displayName: Use Nuget 4.3.0
       inputs:
         versionSpec: '4.3.0'
+      enabled: "false"
 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
@@ -107,6 +108,7 @@ stages:
       displayName: Use Nuget 4.3.0
       inputs:
         versionSpec: '4.3.0'
+      enabled: "false"
 
     - task: NuGetCommand@2
       displayName: 'NuGet restore'
