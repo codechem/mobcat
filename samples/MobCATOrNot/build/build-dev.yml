@@ -134,3 +134,12 @@ stages:
         packageApp: false
         buildForSimulator: true
         runNugetRestore: false
+      enabled: "false"
+
+    - task: MSBuild@1
+      displayName: 'Build  Xamarin.iOS App'
+      inputs:
+        solution: samples/MobCATOrNot/MobCATOrNot.iOS/MobCATOrNot.iOS.csproj
+        platform: iPhoneSimulator
+        configuration: '$(BuildConfiguration)'
+        # msbuildArguments: '/p:BuildIpa=true'
