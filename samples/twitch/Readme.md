@@ -7,8 +7,21 @@ https://www.twitch.tv/ is in their own words:
 ## MobCAT Sample
 The goal of the MobCAT sample is to build a Twitch app via live-coding on Twitch using the latest and greatest in Xamarin.Forms with the MobCAT Toolbox to demonstrate the thought process in using best practices for common use cases. After the app is built, we will also be profiling the app to demonstrate common profiling scenarios.
 
+## Prep
+### Setup CI/CD (Sweeky)
+### Assets (Sweeky)
+### UX Prototype (Ben) [Add link here when complete]
+
+
 ## Episodes
-Coming soon!
+Sandwich episodes with TDD (unit tests, UI tests) and profiling when possible
+### 1: Dean - Intro - File new proj - Setting up dummy views, shell, mobcat, CI/CD
+### 2: Ben - Build API wrapper - Building out discover tab with collection view - Shell search 
+### 3: Alexey - Video player inception
+### 4: Sweeky - Auth, local caching - Recommendations
+### 5: Mike - Follow, image/video caching
+### 6: Alex/ey - Profiling
+
 
 ## Twitch API
 The Twitch API documentation can be found here: https://dev.twitch.tv/docs/api/
@@ -103,7 +116,7 @@ and view top results from each of the categories
 - Get a push/reminder if when person/channel you are following starts streaming
 
 
-## MobCAT Twitch Functionality
+## MobCAT Twitch MVP Functionality
 
 ### Auth
 The user will be able to login
@@ -126,6 +139,11 @@ Lists livestreams or videos of the category
 ### Channel Details
 Shows livestream, past broadcasts, highlights, clips, and info
 
+
+## Nice to Haves
+### Chat (Phase 2)
+
+
 ## Xamarin Concepts
 The Xamarin concepts and best practices that will be highlighted are
 - Shell
@@ -134,5 +152,15 @@ The Xamarin concepts and best practices that will be highlighted are
 - Asynchronous programming
 - Smart image caching and loading
 - Performance optimization, memory management, and profiling
-- Custom Controls for something? (like Top tabs or some button or something)
+- Custom Controls for something? (like Top tabs or some button or something) (inline video)
+- Manual notification for new app version (From AppCenter)
+- Forms Visual (Material)
+- Unit Testing
+- UI Testing
+- CI/CD concepts (AppCenter)
+- Package creation
+- Publishing just to AppCenter
+- *Push notifications
+
+* Needs a separate mechanism
 
